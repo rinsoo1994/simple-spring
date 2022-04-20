@@ -3,6 +3,7 @@ package com.example.hellospring;
 import com.example.hellospring.repository.MemberRepository;
 import com.example.hellospring.repository.MemoryMemberRepository;
 import com.example.hellospring.repository.jdbcMemberRepository;
+import com.example.hellospring.repository.jdbcTemplateMemberRepository;
 import com.example.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,6 @@ public class SpringConfig {
     @Bean
     public MemberRepository memberRepository() {
 // return new MemoryMemberRepository();
-        return new jdbcMemberRepository(dataSource);
+        return new jdbcTemplateMemberRepository(dataSource);
     }
 }

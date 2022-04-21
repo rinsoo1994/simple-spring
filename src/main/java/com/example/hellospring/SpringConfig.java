@@ -6,25 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.persistence.EntityManager;
-import javax.sql.DataSource;
-
 @Configuration
 public class SpringConfig {
-    private final EntityManager entityManagerm;
+//    private final EntityManager entityManagerm;
+//
+//    @Autowired
+//    public SpringConfig(EntityManager entityManagerm) {
+//        this.entityManagerm = entityManagerm;
+//    }
+    private final MemberRepository memberRepository;
+
 
     @Autowired
-    public SpringConfig(EntityManager entityManagerm) {
-        this.entityManagerm = entityManagerm;
+    public SpringConfig(MemberRepository memberRepository) {
+        // JpaRepository 상속받게 만들어줘서 거기서 spring bean에 알아서 등록해줌.
+        this.memberRepository = memberRepository;
     }
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
-    @Bean
-    public MemberRepository memberRepository() {
+
+//    @Bean
+//    public MemberRepository memberRepository() {
 // return new MemoryMemberRepository();
-        return new JpaMemberRepository(entityManagerm);
-    }
+//        return new JpaMemberRepository(entityManagerm);
+//    }
 }
